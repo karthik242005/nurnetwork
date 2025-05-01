@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="./css/lstyles.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Sign Up</h2>
+            <form id="signup-form" action="/signup" method="POST">
+                <div class="textbox">
+                    <input type="text" placeholder="Username" name="username" required>
+                </div>
+                <div class="textbox">
+                    <input type="email" placeholder="Email" name="email" required>
+                </div>
+                <div class="textbox">
+                    <input type="password" id="password" placeholder="Password" name="password" required>
+                </div>
+                <div class="textbox">
+                    <input type="password" id="confirm-password" placeholder="Confirm Password" name="confirmPassword" required>
+                </div>
+                <div id="password-error" style="display: none; color: red;">Passwords do not match.</div>
+                <button type="submit" id="submit-btn" class="btn">Sign Up</button>
+            </form>
+            <div class="home-link">
+                <p>Already signed up? <a href="./login.html">Log in</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('signup-form');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirm-password');
+            const passwordError = document.getElementById('password-error');
+            const submitBtn = document.getElementById('submit-btn');
+
+            function validatePassword() {
+                if (password.value === confirmPassword.value) {
+                    passwordError.style.display = 'none';
+                    confirmPassword.setCustomValidity('');
+                    submitBtn.disabled = false;
+                } else {
+                    passwordError.style.display = 'block';
+                    confirmPassword.setCustomValidity("Passwords don't match");
+                    submitBtn.disabled = true;
+                }
+            }
+
+            password.addEventListener('input', validatePassword);
+            confirmPassword.addEventListener('input', validatePassword);
+
+            form.addEventListener('submit', function (event) {
+                validatePassword();
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

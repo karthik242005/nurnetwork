@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discussion</title>
+    <link rel="stylesheet" href="./css/dcss.css">
+</head>
+<body>
+    <nav>
+        <h1>ML Community</h1>
+        <div class="user-info">
+            <span id="username">Loading...</span>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 id="discussionTitle">Loading...</h2>
+        <p id="discussionContent">Please wait...</p>
+        <small id="discussionUser"></small>
+
+        <h3>Replies</h3>
+        <div id="repliesContainer">No replies yet.</div>
+
+        <h3>Post a Reply</h3>
+        <form id="replyForm">
+            <textarea id="replyContent" placeholder="Write your reply..." required></textarea>
+            <button type="submit">Post Reply</button>
+        </form>
+    </div>
+
+
+    <script>
+        async function fetchUserSession() {
+      try {
+        const response = await fetch("/api/session", { method: "GET", credentials: "include" });
+        const data = await response.json();
+        
+        if (data.username) {
+          document.getElementById("username").innerText = data.username;
+        }
+      } catch (error) {
+        console.error("Error fetching session:", error);
+      }
+    }
+    fetchUserSession();
+    </script>
+    <script src="./js/discussion.js"></script>
+</body>
+</html>

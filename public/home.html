@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neural Network - Your Machine Learning Community</title>
+  <link rel="stylesheet" href="./css/hcss.css">
+  <!-- Google Fonts for cyberpunk/neon aesthetic -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: black;
+      border-bottom: 2px solid cyan;
+    }
+
+    .navbar-content {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .navbar h1 {
+      font-size: 1.5rem;
+      color: cyan;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      margin-left: auto; /* Pushes the navigation to the right */
+      gap: 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: cyan;
+      font-weight: bold;
+      font-family: 'Rajdhani', sans-serif;
+    }
+
+    .user-info {
+      font-size: 1rem;
+      color: cyan;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .user-info i {
+      font-size: 1.2rem;
+    }
+  </style>
+  
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-content">
+      <h1><i class="fas fa-brain"></i> ML DEV HUB</h1>
+      <div class="nav-container">
+        <div class="nav-links">
+          <a href="./discussions.html"><i class="fas fa-users"></i> Discussions</a>
+          <a href="./news.html"><i class="fas fa-book"></i> News</a>
+          <a href="./yttest.html"><i class="fas fa-video"></i> ML Tube</a>
+          <i class="user-info fas fa-user-circle"></i> 
+          <span class="user-info" id="username">Guest</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <section class="hero">
+      <h1>Welcome to ML DEV HUB</h1>
+      <p>Your gateway to machine learning excellence</p>
+      <a href="./signup.html" class="button">Join Our Community</a>
+    </section>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3><i class="fas fa-book-open"></i> Learning Resources</h3>
+        <p>Access curated ML notes, videos, and tutorials from experts worldwide. Create your own channel to share knowledge.</p>
+      </div>
+      <div class="feature-card">
+        <h3><i class="fas fa-code-branch"></i> Collaborative Coding</h3>
+        <p>Code together in real-time, share repositories, and collaborate on ML projects with team members.</p>
+      </div>
+      <div class="feature-card">
+        <h3><i class="fas fa-flask"></i> Research Hub</h3>
+        <p>Explore the latest research papers, datasets, and implementations. Stay updated with cutting-edge ML developments.</p>
+      </div>
+      <div class="feature-card">
+        <h3><i class="fas fa-comments"></i> Discussion Board</h3>
+        <p>Join discussions, ask questions, and connect with ML enthusiasts and experts from around the globe.</p>
+      </div>
+    </div>
+
+    <section class="news-section">
+      <h2 class="section-title">Latest Updates</h2>
+      <div class="news-grid">
+        <div class="news-item">
+          <h4><i class="fas fa-code"></i> New Framework Release</h4>
+          <p>TensorFlow 2.14 brings improved performance and new features for edge devices, allowing for faster inference and better model optimization.</p>
+        </div>
+        <div class="news-item">
+          <h4><i class="fas fa-lightbulb"></i> Research Highlight</h4>
+          <p>Breakthrough in reinforcement learning approaches enables models to learn complex tasks with significantly fewer training examples.</p>
+        </div>
+        <div class="news-item">
+          <h4><i class="fas fa-project-diagram"></i> Community Spotlight</h4>
+          <p>Featured project: Real-time object detection implementation achieves state-of-the-art accuracy while maintaining 60 FPS on consumer hardware.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Simple animation for feature cards
+    document.addEventListener('DOMContentLoaded', () => {
+      const featureCards = document.querySelectorAll('.feature-card');
+      featureCards.forEach((card, index) => {
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 200 * index);
+      });
+    });
+  </script>
+</body>
+</html>

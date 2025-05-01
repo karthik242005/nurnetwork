@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Community Discussions</title>
+    <link rel="stylesheet" href="./css/dcss.css">
+</head>
+<body>
+    <nav>
+        <h1>ML Community</h1>
+        <div class="user-info">
+            <span id="username">Loading...</span>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Start a Discussion</h2>
+        <form id="discussionForm">
+            <input type="text" id="title" placeholder="Discussion title" required>
+            <textarea id="content" placeholder="Describe your discussion topic..." required></textarea>
+            <button type="submit">Post</button>
+        </form>
+
+        <h2>All Discussions</h2>
+        <div id="postsContainer">No discussions yet.</div>
+    </div>
+
+    <script>
+        // ✅ Fetch user session to show username
+        async function fetchUserSession() {
+            try {
+                const response = await fetch("/api/session", { credentials: "include" }); 
+                const data = await response.json();
+
+                document.getElementById("username").innerText = data.username || "Guest";
+            } catch (error) {
+                console.error("Error fetching session:", error);
+            }
+        }
+
+        fetchUserSession();
+
+        // ✅ Fetch and display all discussions
+        async function fetchDiscussions() {
+            try {
+                const response = await fetch("/api/posts", { credentials: "include" });
+                const discussions = await response.json();
+
+                const container = document.getElementById("postsContainer");
+                container.innerHTML = "";
+
+                if (discussions.length === 0) {
+                    container.innerHTML = "<p>No discussions yet.</p>";
+                    return;
+                }
+
+                discussions.forEach(discussion => {
+                    const postElement = document.createElement("div");
+                    postElement.classList.add("post");
+                    postElement.innerHTML = `
+                        <h3><a href="discussion.html?id=${discussion._id}">${discussion.title}</a></h3>
+                        <p>${discussion.content}</p>
+                        <small>Posted by ${discussion.user?.username || "Unknown"} on ${new Date(discussion.createdAt).toLocaleString()}</small>
+                    `;
+                    container.appendChild(postElement);
+                });
+            } catch (err) {
+                console.error("❌ Error fetching discussions:", err);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchDiscussions);
+
+        // ✅ Handle discussion post submission
+        document.getElementById("discussionForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const title = document.getElementById("title").value.trim();
+            const content = document.getElementById("content").value.trim();
+
+            if (!title || !content) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            try {
+                const response = await fetch("/api/posts/create", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ title, content }),
+                    credentials: "include"
+                });
+
+                if (response.ok) {
+                    document.getElementById("discussionForm").reset();
+                    fetchDiscussions(); // Refresh discussions
+                } else {
+                    const data = await response.json();
+                    alert(`❌ ${data.error}`);
+                }
+            } catch (error) {
+                console.error("Error posting discussion:", error);
+                alert("Failed to post discussion.");
+            }
+        });
+
+        // ✅ Handle logout
+        document.getElementById("logoutBtn").addEventListener("click", async () => {
+            try {
+                const response = await fetch("/logout", { method: "POST", credentials: "include" });
+
+                if (response.ok) {
+                    window.location.href = "/"; // Redirect to home page
+                } else {
+                    alert("Failed to log out.");
+                }
+            } catch (error) {
+                console.error("Error logging out:", error);
+                alert("Logout failed.");
+            }
+        });
+    </script>
+</body>
+</html>
